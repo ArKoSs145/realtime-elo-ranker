@@ -11,9 +11,10 @@ import { Match } from './match/match.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'elo.db',
+      database: process.env.NODE_ENV === 'test' ? ':memory:' : 'elo.db',
       entities: [Player, Match],
       synchronize: true,
+      dropSchema: process.env.NODE_ENV === 'test',
     }),
     EventEmitterModule.forRoot(),
     PlayerModule,

@@ -23,9 +23,10 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'sqlite',
-                database: 'elo.db',
+                database: process.env.NODE_ENV === 'test' ? ':memory:' : 'elo.db',
                 entities: [player_entity_1.Player, match_entity_1.Match],
                 synchronize: true,
+                dropSchema: process.env.NODE_ENV === 'test',
             }),
             event_emitter_1.EventEmitterModule.forRoot(),
             player_module_1.PlayerModule,
